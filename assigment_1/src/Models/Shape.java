@@ -1,5 +1,6 @@
 package Models;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Shape {
     private ArrayList<Point> points = new ArrayList<Point>();
@@ -9,15 +10,7 @@ public class Shape {
     }
 
     public double calculatePerimeter() {
-        double perimeter = 0.0;
-        int numPoints = points.size();
-
-        for(int i = 0; i < numPoints; i++) {
-            int nextIndex = (i + 1) % numPoints;
-            perimeter += points.get(i).getDistance(points.get(nextIndex));
-        }
-
-        return perimeter;
+        return Arrays.stream(getSides()).sum();
     }
 
     public double getAverageSide() {
@@ -25,19 +18,17 @@ public class Shape {
     }
 
     public double getLongestSide() {
-        double longestSide = 0.0;
-        int numPoints = points.size();
+        return Arrays.stream(getSides()).max().getAsDouble();
+    }
 
-        for(int i = 0; i < numPoints; i++) {
-            int nextIndex = (i + 1) % numPoints;
-            double currentSide = points.get(i).getDistance(points.get(nextIndex));
-
-            if(currentSide > longestSide) {
-                longestSide = currentSide;
-            }
+    private double[] getSides() {
+        double[] sides = new double[points.size()];
+        for(int i = 0; i < points.size(); i++) {
+            int nextIndex = (i + 1) % points.size();
+            sides[i] = points.get(i).getDistance(points.get(nextIndex));
         }
 
-        return longestSide;
+        return sides;
     }
 
     public String toString() {
