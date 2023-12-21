@@ -14,7 +14,7 @@ public class Shape {
 
         for(int i = 0; i < numPoints; i++) {
             int nextIndex = (i + 1) % numPoints;
-            perimeter += points.get(i).distanceTo(points.get(nextIndex));
+            perimeter += points.get(i).getDistance(points.get(nextIndex));
         }
 
         return perimeter;
@@ -30,7 +30,7 @@ public class Shape {
 
         for(int i = 0; i < numPoints; i++) {
             int nextIndex = (i + 1) % numPoints;
-            double currentSide = points.get(i).distanceTo(points.get(nextIndex));
+            double currentSide = points.get(i).getDistance(points.get(nextIndex));
 
             if(currentSide > longestSide) {
                 longestSide = currentSide;
